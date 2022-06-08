@@ -11,8 +11,8 @@ body {
 .app {
   background-image: url('./backgrounds/part-cloudy-day.jpg');
   background-size: cover;
-  /* background-position: bottom; */
-  transition: 0.5s ease-out;
+  background-position: bottom;
+  transition: 1s ease-out;
 }
 
 main {
@@ -24,11 +24,13 @@ main {
 .search-box {
   width: 100%;
   margin: 0 0 75px;
+  display: flex;
+  justify-content: center;
 }
 
 .search-box .search-bar {
   display: block;
-  width: 100%;
+  width: 50%;
   padding: 15px;
   appearance: none;
   background: none;
@@ -77,4 +79,52 @@ main {
   color: white;
   font-size: 50px;
   text-shadow: 3px 3px rgba(50, 50, 70, 0.5);
+
+}
+
+/* classes for background image */
+.clear-day {
+  background-image: url('./backgrounds/clear-day.jpg');
+}
+.clear-night {
+  background-image: url('./backgrounds/clear-night.jpg');
+  background-position: center;
+}
+.hazy-day {
+  background-image: url('./backgrounds/hazy-day.jpg');
+}
+.hazy-night {
+  background-image: url('./backgrounds/hazy-night.jpg');
+}
+.overcast-day {
+  background-image: url('./backgrounds/overcast-day.jpg');
+}
+.overcast-night {
+  background-image: url('./backgrounds/overcast-night.jpg');
+}
+.part-cloudy-day {
+  background-image: url('./backgrounds/part-cloudy-day.jpg');
+  background-position: center;
+}
+.part-cloudy-night {
+  background-image: url('./backgrounds/part-cloudy-night.jpg');
+}
+.rain-day {
+  background-image: url('./backgrounds/rain-day.jpg');
+}
+.rain-night {
+  background-image: url('./backgrounds/rain-night.jpg');
+  background-position: center;
+}
+.snow-day {
+  background-image: url('./backgrounds/snow-day.jpg');
+}
+.snow-night {
+  background-image: url('./backgrounds/snow-night.jpg');
+}
+.storm-day {
+  background-image: url('./backgrounds/storm-day.jpg');
+}
+.storm-night {
+  background-image: url('./backgrounds/storm-night.jpg');
 }
