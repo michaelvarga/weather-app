@@ -114,7 +114,11 @@ function App() {
                 {Math.round(weather.main.temp)}&deg;F
               </div>
               <div className="weather">
-                {weather.weather[0].description.toUpperCase()}
+                {weather.weather[0].description
+                  .toLowerCase()
+                  .split(' ')
+                  .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+                  .join(' ')}
               </div>
               <img src={require(`./icons/${weather.weather[0].icon}.png`)} alt="weather icon"/>
             </div>
