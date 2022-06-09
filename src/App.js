@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
+import Forecast from "./Forecast";
 
 const api = {
   key: "a7554c1e88ba66f0d735a50734399497",
@@ -9,22 +10,40 @@ const api = {
 function App() {
   const [query, setQuery] = useState("");
   const [weather, setWeather] = useState({});
+  const [forecast, setForecast] = useState({});
 
-  const search = (event) => {
+  const search = async (event) => {
     if (event.key === "Enter") {
-      fetch(`${api.baseUrl}weather?q=${query}&units=imperial&appid=${api.key}`)
+      let lat;
+      let lon;
+      await fetch(
+        `${api.baseUrl}weather?q=${query}&units=imperial&appid=${api.key}`
+      )
         .then((res) => res.json())
         .then((result) => {
           setWeather(result);
+          lat = result.coord.lat;
+          lon = result.coord.lon;
           setQuery("");
-          console.log(result);
+        });
+      await fetch(
+        `${api.baseUrl}onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely,alerts&units=imperial&appid=${api.key}`
+      )
+        .then((res) => res.json())
+        .then((result) => {
+          setForecast(result);
+          setQuery("");
         });
     }
   };
 
   const displayDate = (timeOffset) => {
     //finds the local date/time in city that user searches for
-    const newDate = new Date(new Date().getTime() + timeOffset * 1000 + new Date().getTimezoneOffset() * 60000);
+    const newDate = new Date(
+      new Date().getTime() +
+        timeOffset * 1000 +
+        new Date().getTimezoneOffset() * 60000
+    );
     const months = [
       "January",
       "February",
@@ -82,20 +101,24 @@ function App() {
   const backgroundClass = () => {
     let time;
     //check API for presence of 'd' or 'n' in id, indicating day/night
-    const isDay = weather.weather[0].icon.slice(-1) === 'd';
-    isDay ? time = 'day' : time = 'night'
+    const isDay = weather.weather[0].icon.slice(-1) === "d";
+    isDay ? (time = "day") : (time = "night");
     const type = weatherType(weather.weather[0].id);
     return `app ${type}-${time}`;
   };
 
   return (
-    <div className={(typeof weather.main !== "undefined") ? backgroundClass() : "app"}>
+    <div
+      className={
+        typeof weather.main !== "undefined" ? backgroundClass() : "app"
+      }
+    >
       <main>
         <div className="search-box">
           <input
-            type="text"
+            type="search"
             className="search-bar"
-            placeholder="Search..."
+            placeholder="Search"
             onChange={(event) => setQuery(event.target.value)} //refactor this
             value={query}
             onKeyPress={search}
@@ -105,7 +128,7 @@ function App() {
           <div>
             <div className="location-container">
               <div className="location">
-                {weather.name}, {weather.sys.country}
+                <h2>{weather.name}, {weather.sys.country}</h2>
               </div>
               <div className="date">{displayDate(weather.timezone)}</div>
             </div>
@@ -114,14 +137,24 @@ function App() {
                 {Math.round(weather.main.temp)}&deg;F
               </div>
               <div className="weather">
-                {weather.weather[0].description
-                  .toLowerCase()
-                  .split(' ')
-                  .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-                  .join(' ')}
+                <div className="clouds">
+                  <img
+                    src={require(`./icons/${weather.weather[0].icon}.png`)}
+                    alt="weather icon"
+                  />
+                  <p>{weather.weather[0].description.toLowerCase()}</p>
+                </div>
+                <div className="wind">
+                  <img src={require(`./icons/wind.png`)} alt="wind"/>
+                  <p>{Math.floor(weather.wind.speed)} mph</p>
+                </div>
+                <div className="feels-like">
+                  <span>{Math.round(weather.main.feels_like)}&#8457;</span>
+                  <p>feels like</p>
+                </div>
               </div>
-              <img src={require(`./icons/${weather.weather[0].icon}.png`)} alt="weather icon"/>
             </div>
+            <Forecast forecast={forecast.daily} />
           </div>
         ) : (
           ""
