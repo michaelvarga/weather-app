@@ -117,19 +117,39 @@ main {
   align-items: flex-start;
 }
 
+.forecast-details {
+  width: 1200px;
+  height: 250px;
+  display: flex;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.5);
+  border: 0.2rem solid red;
+}
+
 .forecast-day {
-  color: white;
-  text-shadow: 3px 3px rgba(50, 50, 70, 0.5);
+  color: black;
+  font-weight: 700;
+  /* text-shadow: 3px 3px rgba(50, 50, 70, 0.5); */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.4);
+  width: 150px;
 }
 
 .forecast-day img {
   height: 100px;
+}
+
+.forecast-day:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.forecast-day:active {
+  position: relative;
+  top: 2px;
 }
 
 /* classes for background image */

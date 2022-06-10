@@ -154,7 +154,7 @@ function App() {
                 </div>
               </div>
             </div>
-            <Forecast forecast={forecast.daily} />
+            <Forecast forecast={forecast.daily} timezone={forecast.timezone}/>
           </div>
         ) : (
           ""
