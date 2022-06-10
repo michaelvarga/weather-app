@@ -34,7 +34,7 @@ class Forecast extends React.Component {
     // console.log("FORECAST: ", forecast);
 
     return (
-      <div>
+      <div className="forecast-body">
         <div className="forecast-container">
           {!forecast
             ? "There is no forecast to display for this location"
@@ -48,7 +48,7 @@ class Forecast extends React.Component {
                 </a>
               ))}
         </div>
-        {this.state.isOpen && <ForecastDetails selectedDay={this.state.selectedDay} setToClose={this.setToClose}/>}
+        {this.state.isOpen && <ForecastDetails selectedDay={this.state.selectedDay} setToClose={this.setToClose} timezone={timezone}/>}
       </div>
     );
   }

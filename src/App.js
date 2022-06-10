@@ -114,14 +114,16 @@ function App() {
       }
     >
       <main>
+
         <div className="search-box">
           <input
-            type="search"
+            type="text"
             className="search-bar"
-            placeholder="Search"
+            placeholder="Search City and Country"
             onChange={(event) => setQuery(event.target.value)} //refactor this
             value={query}
             onKeyPress={search}
+            aria-hidden="true"
           />
         </div>
         {typeof weather.main != "undefined" ? (
@@ -134,7 +136,7 @@ function App() {
             </div>
             <div className="weather-container">
               <div className="temperature">
-                {Math.round(weather.main.temp)}&deg;F
+                {Math.round(weather.main.temp)}&#8457;
               </div>
               <div className="weather">
                 <div className="clouds">
@@ -157,7 +159,9 @@ function App() {
             <Forecast forecast={forecast.daily} timezone={forecast.timezone}/>
           </div>
         ) : (
-          ""
+          <div className="home-container">
+            <h1><img src={require(`./icons/app-logo.png`)} alt="weather logo"/>Weather App</h1>
+          </div>
         )}
       </main>
     </div>
